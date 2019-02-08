@@ -1,0 +1,16 @@
+image_config: &image_config
+  IMAGE_NAME: circle-ci
+  IMAGE_TAG: 3.3.5-buildpacks-bionic
+
+version: 2
+jobs:
+  build:
+    machine: true
+    environment:
+      <<: *image_config
+
+    steps:
+      - checkout
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run: docker build --force-rm -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG .
+      - run: docker push $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG && sleep 10
