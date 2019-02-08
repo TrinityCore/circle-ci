@@ -22,13 +22,13 @@ EOF
 git config --global url."ssh://git@github.com".insteadOf "https://github.com" || true
 git config --global gc.auto 0 || true
 
-if [ -e /root/project/.git ]
+if [ -e $HOME/project/.git ]
 then
-  cd /root/project
+  cd $HOME/project
   git remote set-url origin "$CIRCLE_REPOSITORY_URL" || true
 else
-  mkdir -p /root/project
-  cd /root/project
+  mkdir -p $HOME/project
+  cd $HOME/project
   if [ -n "$CIRCLE_BRANCH" ]
   then
     git clone --depth=1 --branch="$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL" .
