@@ -51,6 +51,7 @@ elif [ -n "$CIRCLE_BRANCH" ]
 then
   git reset --hard "$CIRCLE_SHA1"
   git checkout -q -B "$CIRCLE_BRANCH"
+  git tag -a -m "Circle CI build" init
 fi
 
 git reset --hard "$CIRCLE_SHA1"
