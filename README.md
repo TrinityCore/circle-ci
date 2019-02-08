@@ -1,1 +1,1 @@
-Initial commit
+This repo contains the Dockerfile definition for the containers used in Circle CI by TrinityCore project and the relative Circle CI scripts required to automatically build the image and push it to DockerHub
