@@ -31,7 +31,12 @@ else
   cd $HOME/project
   if [ -n "$CIRCLE_BRANCH" ]
   then
-    git clone --depth=1 --branch="$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL" .
+    if [ -n "$CIRCLE_PR_NUMBER" ]
+    then
+      git clone --depth=1 "$CIRCLE_REPOSITORY_URL" .
+    else
+      git clone --depth=1 --branch="$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL" .
+    fi
   else
     git clone "$CIRCLE_REPOSITORY_URL" .
   fi
@@ -39,7 +44,12 @@ fi
 
 if [ -n "$CIRCLE_TAG" ]
 then
-  git fetch --force origin "refs/tags/${CIRCLE_TAG}"
+  git fetch origin --depth=1 "refs/tags/${CIRCLE_TAG}"
+else
+  if [ -n "$CIRCLE_PR_NUMBER" ]
+  then
+    git fetch origin --depth=1 "+refs/$CIRCLE_BRANCH/head"
+  fi
 fi
 
 
