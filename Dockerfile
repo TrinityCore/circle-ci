@@ -1,4 +1,4 @@
-FROM circleci/buildpack-deps:bionic
+FROM circleci/buildpack-deps:cosmic
 
 # Requirements
 RUN sudo apt-get update && \
