@@ -1,4 +1,4 @@
-FROM circleci/buildpack-deps:cosmic
+FROM circleci/buildpack-deps:disco
 
 # Requirements
 RUN sudo apt-get update && \
