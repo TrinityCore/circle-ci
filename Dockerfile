@@ -1,4 +1,4 @@
-FROM circleci/buildpack-deps:disco
+FROM circleci/buildpack-deps:focal
 
 # Requirements
 RUN sudo apt-get update && \
