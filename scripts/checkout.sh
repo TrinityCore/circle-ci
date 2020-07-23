@@ -33,12 +33,12 @@ else
   then
     if [ -n "$CIRCLE_PR_NUMBER" ]
     then
-      git clone --depth=1 "$CIRCLE_REPOSITORY_URL" .
+      git clone --depth=1 --recurse-submodules --shallow-submodules "$CIRCLE_REPOSITORY_URL" .
     else
-      git clone --depth=1 --branch="$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL" .
+      git clone --depth=1 --recurse-submodules --shallow-submodules --branch="$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL" .
     fi
   else
-    git clone "$CIRCLE_REPOSITORY_URL" .
+    git clone --recurse-submodules --shallow-submodules "$CIRCLE_REPOSITORY_URL" .
   fi
 fi
 
@@ -56,12 +56,13 @@ fi
 if [ -n "$CIRCLE_TAG" ]
 then
   git reset --hard "$CIRCLE_SHA1"
-  git checkout -q "$CIRCLE_TAG"
+  git checkout -q --recurse-submodules "$CIRCLE_TAG"
 elif [ -n "$CIRCLE_BRANCH" ]
 then
   git reset --hard "$CIRCLE_SHA1"
-  git checkout -q -B "$CIRCLE_BRANCH"
+  git checkout -q --recurse-submodules -B "$CIRCLE_BRANCH"
   git tag -a -m "Circle CI build" init
 fi
 
 git reset --hard "$CIRCLE_SHA1"
+git submodule update --init
