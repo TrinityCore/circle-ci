@@ -1,4 +1,4 @@
-FROM circleci/buildpack-deps:focal
+FROM circleci/buildpack-deps:hirsute
 
 # Requirements
 RUN sudo apt-get update && \
