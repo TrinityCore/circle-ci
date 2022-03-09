@@ -1,6 +1,6 @@
 image_config: &image_config
   IMAGE_NAME: circle-ci
-  IMAGE_TAG: master-buildpacks-focal
+  IMAGE_TAG: master-buildpacks-hirsute
 
 version: 2
 jobs:
