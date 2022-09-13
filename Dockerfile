@@ -1,4 +1,4 @@
-FROM circleci/buildpack-deps:hirsute
+FROM cimg/base:2022.09-22.04
 
 # Requirements
 RUN sudo apt-get update && \
@@ -12,5 +12,5 @@ RUN sudo apt-get update && \
 RUN git config --global user.email "circleci@build.bot" && git config --global user.name "Circle CI"
 RUN sudo update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 && \
  sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100
-COPY scripts/ scripts/
+COPY scripts/ /scripts/
 RUN sudo chmod a+x -R /scripts

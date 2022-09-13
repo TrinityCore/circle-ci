@@ -1,6 +1,6 @@
 image_config: &image_config
   IMAGE_NAME: circle-ci
-  IMAGE_TAG: 3.3.5-buildpacks-hirsute
+  IMAGE_TAG: 3.3.5-base-22.04
 
 version: 2
 jobs:
