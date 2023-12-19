@@ -1,6 +1,6 @@
 image_config: &image_config
   IMAGE_NAME: circle-ci
-  IMAGE_TAG: master-base-22.04
+  IMAGE_TAG: wotlk_classic-base-22.04
 
 version: 2
 jobs:
