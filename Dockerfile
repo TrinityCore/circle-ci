@@ -1,7 +1,8 @@
 FROM cimg/base:2022.09-22.04
 
 # Requirements
-RUN sudo apt-get update && \
+RUN wget -O - https://apt.kitware.com/kitware-archive.sh | sudo $SHELL && \
+ sudo apt-get update && \
  sudo apt-get install -y \
  git ssh tar gzip ca-certificates \
  cmake clang mysql-client \
