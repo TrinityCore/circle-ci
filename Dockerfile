@@ -5,7 +5,7 @@ RUN wget -O - https://apt.kitware.com/kitware-archive.sh | sudo $SHELL && \
  sudo apt-get update && \
  sudo apt-get install -y \
  git ssh tar gzip ca-certificates \
- cmake clang mysql-client \
+ cmake clang g++-12 mysql-client \
  libboost-dev libboost-filesystem-dev libboost-locale-dev libboost-program-options-dev libboost-regex-dev libboost-system-dev libboost-thread-dev libssl-dev libmysqlclient-dev libreadline-dev libncurses-dev zlib1g-dev libbz2-dev ccache \
  && sudo rm -rf /var/lib/apt/lists/*
 
