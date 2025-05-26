@@ -1,6 +1,6 @@
 image_config: &image_config
   IMAGE_NAME: circle-ci
-  IMAGE_TAG: master-base-22.04
+  IMAGE_TAG: debian-12
 
 version: 2
 jobs:
@@ -12,5 +12,7 @@ jobs:
     steps:
       - checkout
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker build --force-rm -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG .
-      - run: docker push $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG && sleep 10
+      - run: docker build --force-rm --target builder -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-builder .
+      - run: docker push $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-builder && sleep 10
+      - run: docker build --force-rm --target runner -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-runner .
+      - run: docker push $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-runner && sleep 10
