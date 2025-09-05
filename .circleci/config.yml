@@ -1,6 +1,6 @@
 image_config: &image_config
   IMAGE_NAME: circle-ci
-  IMAGE_TAG: debian-12
+  IMAGE_TAG: debian-13
 
 version: 2
 jobs:

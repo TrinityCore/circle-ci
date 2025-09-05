@@ -1,16 +1,20 @@
-FROM debian:12-slim AS base
+FROM debian:13-slim AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Runtime only equirements
+
+# At the time of writing, mysql doesn't provide packages for debian 13, so use the ones from 12
+
 RUN apt-get update \
  && apt-get install -y \
  sudo lsb-release gnupg wget ca-certificates tar gzip ssh git \
- libboost-filesystem1.74 libboost-locale1.74 libboost-program-options1.74 libboost-regex1.74 libboost-system1.74 libboost-thread1.74 libssl3 libreadline8 zlib1g libbz2-1.0 \
- && wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb -O /tmp/mysql-apt-config_all.deb \
+ libboost-filesystem1.83 libboost-locale1.83 libboost-program-options1.83 libboost-regex1.83 libboost-system1.83 libboost-thread1.83 libssl3 libreadline8 zlib1g libbz2-1.0 \
+ && wget https://dev.mysql.com/get/mysql-apt-config_0.8.34-1_all.deb -O /tmp/mysql-apt-config_all.deb \
  && dpkg -i /tmp/mysql-apt-config_all.deb \
+ && sed -i -e s/trixie/bookworm/g /etc/apt/sources.list.d/mysql.list \
  && apt-get update \
- && apt-get install -y libmysqlclient21 mysql-client \
+ && apt-get install -y libmysqlclient24 mysql-client \
  && echo "circleci ALL=NOPASSWD: ALL" >> /etc/sudoers.d/circleci \
  && echo "Defaults    env_keep += \"DEBIAN_FRONTEND\"" >> /etc/sudoers.d/circleci \
  && groupadd --gid=1002 circleci \
@@ -36,7 +40,7 @@ RUN apt-get update \
   tee /etc/apt/sources.list.d/docker.list > /dev/null \
  && apt-get update \
  && apt-get install -y libmysqlclient-dev docker-ce \
- && wget https://github.com/powerman/dockerize/releases/download/v0.8.0/dockerize-linux-x86_64 -O /usr/local/bin/dockerize \
+ && wget https://github.com/powerman/dockerize/releases/download/v0.24.0/dockerize-v0.24.0-linux-amd64 -O /usr/local/bin/dockerize \
  && chmod +x /usr/local/bin/dockerize \
  && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
  && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100 \
