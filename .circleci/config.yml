@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker build --force-rm --target builder -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-builder .
+      - run: docker build --force-rm --target builder -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-builder --platform linux/amd64 .
       - run: docker push $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-builder && sleep 10
-      - run: docker build --force-rm --target runner -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-runner .
+      - run: docker build --force-rm --target runner -t $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-runner --platform linux/amd64 .
       - run: docker push $DOCKER_REPOUSERNAME/$IMAGE_NAME:$IMAGE_TAG-runner && sleep 10
